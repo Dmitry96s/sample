@@ -1,0 +1,161 @@
+﻿#pragma once
+
+
+#include <cmath>
+#include <fstream>
+#include <iostream>
+#include <regex>
+#include <set>
+#include <map>
+#include <string>
+
+
+using strSet_t = std::set<std::string>;
+using strMap_t = std::map<std::string, std::size_t>;
+
+strSet_t getKeyWords(const char* fileWithKeyWords);
+void showStatistics(strMap_t& ops, strMap_t& opnds, strMap_t& constOpnds);
+
+void doLaba4(std::string& src)
+{
+  std::cout << "/* Source */" << std::endl;
+  std::cout << src << std::endl;
+  std::cout << "/* End of source */" << std::endl << std::endl;
+
+  strSet_t keySet = getKeyWords("keywords.cfg");
+  strMap_t operators;
+  strMap_t operands;
+  strMap_t constOperands;
+
+  // Get main body
+  std::regex regex("(int|void)[\\s]*main[\\s]*\\(.*\\)[\\s]*\\{([\\s\\S]*)\\}");
+  std::smatch m;
+  std::regex_search(src, m, regex);
+
+  std::string mainBody = m[2];
+
+
+  // Serch oparators-functions
+  regex = std::move(std::regex("([a-zA-Z_][\\w]*)[\\s]*\\("));
+  std::string::const_iterator searchStart(mainBody.cbegin());
+  while(regex_search(searchStart, mainBody.cend(), m, regex))
+    {
+//      std::cout << ( searchStart == mainBody.cbegin() ? "" : " " ) << m[1];
+      ++operators[m[1]];
+      searchStart += m.position() + m.length();
+    }
+//    std::cout << std::endl;
+
+
+  // Serch oparators-functions
+  regex = std::move(std::regex("(>>=|<<=|\\+=|\\-=|\\*="
+                               "|/=|%=|\\^=|&=|\\"
+                               "|=|<<|>>|==|!="
+                               "|<=|>=|&&|\\|\\||\\+\\+"
+                               "|\\-\\-|\\->|\\+|\\-|\\*"
+                               "|/|%|\\^|&|\\|"
+                               "|~|!|=|<|>|;|"
+                               "int|double|return|new|delete|return)"));
+  searchStart = mainBody.cbegin();
+  while(regex_search(searchStart, mainBody.cend(), m, regex))
+    {
+//      std::cout << ( searchStart == mainBody.cbegin() ? "" : " " ) << m[1];
+      ++operators[m[0]];
+      searchStart += m.position() + m.length();
+    }
+//    std::cout << std::endl;
+
+
+  // Serch oparands
+  regex = std::move(std::regex("([a-zA-Z_][\\w_]*)"));
+  searchStart = mainBody.cbegin();
+  while(regex_search(searchStart, mainBody.cend(), m, regex))
+    {
+      if(keySet.count(m[1]) == 0 &&
+         operators.count(m[1]) == 0)
+        {
+//          std::cout << ( searchStart == mainBody.cbegin() ? "" : " " ) << m[1];
+          ++operands[m[1]];
+        }
+      searchStart += m.position() + m.length();
+    }
+//  std::cout << std::endl;
+
+
+  // Serch const oparands
+  regex = std::move(std::regex("([+-]?[\\d]+\\.[\\d]+f?"
+                               "|[+-]?\\.[\\d]+f?"
+                               "|[+-]?[\\d]+\\.f"
+                               "|[+-]?[\\d]+)"));
+  searchStart = mainBody.cbegin();
+  while(regex_search(searchStart, mainBody.cend(), m, regex))
+    {
+//      std::cout << ( searchStart == mainBody.cbegin() ? "" : " " ) << m[1];
+      ++constOperands[m[1]];
+      searchStart += m.position() + m.length();
+    }
+//  std::cout << std::endl;
+
+  showStatistics(operators, operands, constOperands);
+}
+
+
+strSet_t getKeyWords(const  char* fileWithKeyWords)
+{
+  strSet_t keySet;
+
+  std::ifstream fin(fileWithKeyWords);
+  if(fin.is_open())
+    {
+      for(std::string word; !fin.eof(); fin >> word)
+        {
+          keySet.insert(word);
+        }
+    }
+  else
+    {
+      std::cerr << "Warning: \"" << fileWithKeyWords << "\" not found" << std::endl;
+    }
+
+  return std::move(keySet);
+}
+
+
+void showStatistics(strMap_t& ops, strMap_t& opnds, strMap_t& constOpnds)
+{
+  int n1 = ops.size(), n2 = opnds.size() + constOpnds.size(), n = n1 + n2;
+  int N1 = 0, N2 = 0, N;
+
+  std::cout << "Operators:  n1 = " << n1 << std::endl;
+  for(auto& x : ops)
+    {
+      N1 += x.second;
+      std::cout << "  f1(" << x.first << ") = " << x.second << std::endl;
+    }
+  std::cout << "  N1 = " << N1 << std::endl;
+  std::cout << std::endl;
+
+  std::cout << "Operands:  n2 = " << n2 << std::endl;
+  for(auto& x : opnds)
+    {
+      N2 += x.second;
+      std::cout << "  f2(" << x.first << ") = " << x.second << std::endl;
+    }
+  for(auto& x : constOpnds)
+    {
+      N2 += x.second;
+      std::cout << "  f2(" << x.first << ") = " << x.second << std::endl;
+    }
+  std::cout << "  N2 = " << N2 << std::endl;
+  std::cout << std::endl;
+
+  N = N1 + N2;
+
+  double V = N * log2(n);
+
+  std::cout << "n = " << n << std::endl <<
+               "N = " << N << std::endl;
+
+  std::cout << "V = N * log2(n)" << std::endl;
+  std::cout << V << " = " << N << " * log2(" << n << ")" << std::endl;
+}

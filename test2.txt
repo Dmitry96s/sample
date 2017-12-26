@@ -1,0 +1,5 @@
+﻿int main()
+{
+  double x, z;
+  double C = log(2) * x - sqrt(6 * atan( z ));
+}
