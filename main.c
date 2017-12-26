@@ -7,7 +7,7 @@ int main(void)
     buff_overflow_test();
     return 0;
 }
-
+Ошибка будет тут
 
 int buff_overflow_test()
 {
