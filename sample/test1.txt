@@ -1,5 +1,5 @@
 ﻿#pragma once
-
+bsdbs
 
 #include <cmath>
 #include <fstream>
@@ -8,7 +8,7 @@
 #include <set>
 #include <map>
 #include <string>
-что-то написал
+
 
 using strSet_t = std::set<std::string>;
 using strMap_t = std::map<std::string, std::size_t>;
