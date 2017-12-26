@@ -12,13 +12,15 @@ int main(void)
 int buff_overflow_test()
 {
 
-    char buff_var4[90];
+
+    char buff_var4[8];
     int pass = 0;
 
     printf("\n Enter the password : \n");
     gets(buff_var4);
 
-    if(strcmp(buff_var4, "pwd13"))
+
+    if(strcmp(buff_var4, "password"))
     {
         printf ("\n Wrong Password \n");
     }
