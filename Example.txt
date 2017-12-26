@@ -1,0 +1,312 @@
+#Установка имени пользователя
+Dmitry@Acer_V3_Dmitry MINGW64 /d/Workspaces
+$ git config --global user.name "Dmitry96s"
+
+#Установка E-mail
+Dmitry@Acer_V3_Dmitry MINGW64 /d/Workspaces
+$ git config --global user.email dmitrij.96s@gmail.com
+
+#Клонирование репозитария
+Dmitry@Acer_V3_Dmitry MINGW64 /d/Workspaces
+$ git clone https://github.com/Dmitry96s/sample.git
+Cloning into 'sample'...
+warning: You appear to have cloned an empty repository.
+#Переход в локальный репозитарий
+Dmitry@Acer_V3_Dmitry MINGW64 /d/Workspaces
+$ cd sample/
+
+#Проверка статуса после добавления нового файла
+Dmitry@Acer_V3_Dmitry MINGW64 /d/Workspaces/sample (master)
+$ git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        README.md
+
+nothing added to commit but untracked files present (use "git add" to track)
+#Добавление файла в репозитарий (в отслеживаемые)
+Dmitry@Acer_V3_Dmitry MINGW64 /d/Workspaces/sample (master)
+$ git add README.md
+
+#Проверка статуса
+Dmitry@Acer_V3_Dmitry MINGW64 /d/Workspaces/sample (master)
+$ git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+
+        new file:   README.md
+
+#Коммит изменений
+Dmitry@Acer_V3_Dmitry MINGW64 /d/Workspaces/sample (master)
+$ git commit -m "Added README file"
+[master (root-commit) 298f31a] Added README file
+ 1 file changed, 1 insertion(+)
+ create mode 100644 README.md
+
+ #Отправка изменений на сервер
+Dmitry@Acer_V3_Dmitry MINGW64 /d/Workspaces/sample (master) 
+$ git push origin master
+Counting objects: 3, done.
+Writing objects: 100% (3/3), 241 bytes | 241.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To https://github.com/Dmitry96s/sample.git
+ * [new branch]      master -> master
+
+#Запрос изменений с сервера
+Dmitry@Acer_V3_Dmitry MINGW64 /d/Workspaces/sample (master)
+$ git pull origin master
+From https://github.com/Dmitry96s/sample
+ * branch            master     -> FETCH_HEAD
+Already up-to-date.
+
+#Создание новой ветви
+Dmitry@Acer_V3_Dmitry MINGW64 /d/Workspaces/sample (master)
+$ git branch "Feature1"
+
+#Просмотр доступных ветвей
+Dmitry@Acer_V3_Dmitry MINGW64 /d/Workspaces/sample (master)
+$ git branch
+  Feature1
+* master
+
+#Смена ветки
+Dmitry@Acer_V3_Dmitry MINGW64 /d/Workspaces/sample (master)
+$ git checkout Feature2
+Switched to branch 'Feature2'
+
+#По заголовку видно, что успешно
+Dmitry@Acer_V3_Dmitry MINGW64 /d/Workspaces/sample (Feature2)
+$
+
+#Добавляем новый файл и смотрим статус
+Dmitry@Acer_V3_Dmitry MINGW64 /d/Workspaces/sample (Feature2)
+$ git status
+On branch Feature2
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        main.c
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+#Добавляем файл
+Dmitry@Acer_V3_Dmitry MINGW64 /d/Workspaces/sample (Feature2)
+$ git add main.c
+warning: LF will be replaced by CRLF in main.c.
+The file will have its original line endings in your working directory.
+
+#Делаем комит
+Dmitry@Acer_V3_Dmitry MINGW64 /d/Workspaces/sample (Feature2)
+$ git commit -m "Added LW4 - main.c"
+[Feature2 b3b74ac] Added LW4 - main.c
+ 1 file changed, 36 insertions(+)
+ create mode 100644 main.c
+ #Преходим в ветку master
+ Dmitry@Acer_V3_Dmitry MINGW64 /d/Workspaces/sample (Feature2)
+$ git checkout master
+Switched to branch 'master'
+Your branch is up-to-date with 'origin/master'.
+
+#делаем пулл
+Dmitry@Acer_V3_Dmitry MINGW64 /d/Workspaces/sample (master)
+$ git pull
+remote: Counting objects: 2, done.
+remote: Total 2 (delta 1), reused 2 (delta 1), pack-reused 0
+Unpacking objects: 100% (2/2), done.
+From https://github.com/Dmitry96s/sample
+   79dfb9f..3f27923  master     -> origin/master
+Updating 79dfb9f..3f27923
+Fast-forward
+
+#Сливаем ветку
+Dmitry@Acer_V3_Dmitry MINGW64 /d/Workspaces/sample (master)
+$ git merge Feature2
+Merge made by the 'recursive' strategy.
+ main.c | 36 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 36 insertions(+)
+ create mode 100644 main.c
+ 
+#Отправляем изменения
+Dmitry@Acer_V3_Dmitry MINGW64 /d/Workspaces/sample (master)
+$ git push
+Counting objects: 4, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (4/4), 741 bytes | 741.00 KiB/s, done.
+Total 4 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), done.
+To https://github.com/Dmitry96s/sample.git
+   3f27923..a0e6258  master -> master
+
+#Удаляем файл и проверяем статус
+Dmitry@Acer_V3_Dmitry MINGW64 /d/Workspaces/sample (master)
+$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        deleted:    sample/Connection Strings.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+#Удаляем файл из репозитария
+Dmitry@Acer_V3_Dmitry MINGW64 /d/Workspaces/sample (master)
+$ git rm sample/Connection\ Strings.txt
+rm 'sample/Connection Strings.txt'
+
+#Комитим изменения
+Dmitry@Acer_V3_Dmitry MINGW64 /d/Workspaces/sample (master)
+$ git commit -m "Deleted junk file"
+[master 3b8bef4] Deleted junk file
+ 1 file changed, 8 deletions(-)
+ delete mode 100644 sample/Connection Strings.txt
+ 
+ #Отправляем изменения
+Dmitry@Acer_V3_Dmitry MINGW64 /d/Workspaces/sample (master)
+$ git push
+Counting objects: 3, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 287 bytes | 287.00 KiB/s, done.
+Total 3 (delta 2), reused 0 (delta 0)
+remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
+To https://github.com/Dmitry96s/sample.git
+   2441ca5..3b8bef4  master -> master
+   
+   
+==========================================
+
+#Сливаем проблемную ветку
+Dmitry@Acer_V3_Dmitry MINGW64 /d/Workspaces/sample (master)
+$ git merge VeryConflictBranch
+Auto-merging main.c
+CONFLICT (content): Merge conflict in main.c
+Automatic merge failed; fix conflicts and then commit the result.
+
+#Получаем статус
+Dmitry@Acer_V3_Dmitry MINGW64 /d/Workspaces/sample (master|MERGING)
+$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+
+        both modified:   main.c
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+#Вручную разрешаем конфликт и добавляем файл
+Dmitry@Acer_V3_Dmitry MINGW64 /d/Workspaces/sample (master|MERGING)
+$ git add main.c
+
+#Комитим
+Dmitry@Acer_V3_Dmitry MINGW64 /d/Workspaces/sample (master|MERGING)
+$ git commit -m "\"Resolved\" conflict with buffer"
+[master fed30a1] "Resolved" conflict with buffer
+
+#Пушим
+Dmitry@Acer_V3_Dmitry MINGW64 /d/Workspaces/sample (master)
+$ git push
+Counting objects: 6, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (6/6), 635 bytes | 635.00 KiB/s, done.
+Total 6 (delta 4), reused 0 (delta 0)
+remote: Resolving deltas: 100% (4/4), completed with 3 local objects.
+To https://github.com/Dmitry96s/sample.git
+   d86e5d2..fed30a1  master -> master
+
+============================
+ Dmitry@Acer_V3_Dmitry MINGW64 /d/Workspaces/sample (master)
+$ git log
+commit fed30a12f15106f3ffdced8d23c19dddb943fff2 (HEAD -> master, origin/master)
+Merge: d86e5d2 a8e781c
+Author: Dmitry96s <dmitrij.96s@gmail.com>
+Date:   Wed Dec 27 02:13:06 2017 +0300
+
+    "Resolved" conflict with buffer
+
+commit d86e5d201e35d472f47b190a89d7465294eaae7a
+Author: Kemanorel13 <fsl611@mail.ru>
+Date:   Wed Dec 27 02:06:37 2017 +0300
+
+    weffew
+
+commit af21976ff99921ccac6e0cc8eca4fc6d8b1b3178
+Merge: ca5d919 7b5c70c
+Author: Kemanorel13 <fsl611@mail.ru>
+Date:   Wed Dec 27 02:04:38 2017 +0300
+
+    Merge branch 'dev'
+
+commit a8e781cf17c98262cc4eee2e9eaa069e646439f7 (VeryConflictBranch)
+Author: Dmitry96s <dmitrij.96s@gmail.com>
+Date:   Wed Dec 27 02:03:39 2017 +0300
+:=\=\=\=\=\=\=\\\=\=\=\=\=\
+
+commit 9da32c27a5524e0ddb9815cc437200a35fe4bfd9
+Author: Kemanorel13 <fsl611@mail.ru>
+Date:   Wed Dec 27 00:20:03 2017 +0300
+
+    fist
+
+commit 298f31a7d35e365dde68d43eb73ac1daa99be00d
+Author: Dmitry96s <dmitrij.96s@gmail.com>
+Date:   Wed Dec 27 00:12:58 2017 +0300
+
+    Added README file
+(END)
+ 
+
+
+=================
+Dmitry@Acer_V3_Dmitry MINGW64 /d/Workspaces/sample (master)
+$ git difftool HEAD HEAD~1 main.c
+
+This message is displayed because 'diff.tool' is not configured.
+See 'git difftool --tool-help' or 'git help config' for more details.
+'git difftool' will now attempt to use one of the following tools:
+opendiff kdiff3 tkdiff xxdiff meld kompare gvimdiff diffuse diffmerge ecmerge p4merge araxis bc codecompare emerge vimdiff
+
+Viewing (1/1): 'main.c'
+Launch 'vimdiff' [Y/n]?
+2 files to edit
+
+
+#Возврат к версии файла
+Dmitry@Acer_V3_Dmitry MINGW64 /d/Workspaces/sample (VeryConflictBranch)
+$ git checkout b3b74accc96e2966923e69640e6aec14dd13c90f main.c
+
+#Сброс комита
+Dmitry@Acer_V3_Dmitry MINGW64 /d/Workspaces/sample (VeryConflictBranch)
+$ git reset --hard HEAD~1
+HEAD is now at a8e781c Changed password and buffer size
+
+
+
+
+
+
+
+
+
+
+
+
+
