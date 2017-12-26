@@ -1,8 +1,0 @@
-JDBC
-
-jdbc:sqlserver://sfedutest.database.windows.net:1433;database=TestDB;user=Dmitry@sfedutest;password={your_password_here};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
-
-ODBC
-
-Driver={ODBC Driver 13 for SQL Server};Server=tcp:sfedutest.database.windows.net,1433;Database=TestDB;Uid=Dmitry@sfedutest;Pwd={your_password_here};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;
-
